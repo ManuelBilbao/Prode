@@ -1,0 +1,56 @@
+body {
+	/*padding: 2em 0;*/
+}
+
+p {
+	margin: 0;
+}
+
+.bandera {
+	height: 24px;
+	margin-top: 11px;
+}
+
+.card {
+	padding: 2em;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border-radius: 5px;
+	border: 1px solid #EEE;
+}
+
+.form input {
+	font-size: 1.5em;
+	width: 3em;
+	text-align: center;
+}
+
+.goles {
+	/*width: calc(50% - 10px);*/
+	width: 3em;
+	text-align: center;
+}
+
+.list-group-item {
+	border-top-left-radius: 0!important;
+	border-top-right-radius: 0!important;
+}
+
+.resultado {
+	margin-top: 5px;
+	/*font-weight: bold;*/
+	text-align: center;
+}
+
+.separador-fecha {
+	padding: 5px 15px;
+	background-color: #EEE;
+	font-size: 0.8em;
+}
+
+.titulo-grupo {
+	margin: 0;
+	padding: 3%;
+	background-color: black;
+	color: white;
+	font-size: 1.3em;
+}

@@ -1,0 +1,27 @@
+{% extends "app/base.html" %}
+{% block contenido %}
+	<div class="row">
+		<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 card">
+			<form method="POST" class="form">
+				{% csrf_token %}
+				<!-- <div class="container"> -->
+					<div class="row">
+						<div class="col-xs-4">
+							<img src="{{STATIC_PREFIX}}/img/banderas/{{partido.equipo1.pk}}.png" alt="" class="">
+							{{form.goles1}}
+						</div>
+						<div class="col-xs-4 text-center">
+							Martes 25/06
+							<br>15:00hs
+						</div>
+						<div class="col-xs-4">
+							<img src="{{STATIC_PREFIX}}/img/banderas/{{partido.equipo2.pk}}.png" alt="" class="pull-right">
+							{{form.goles2}}
+						</div>
+					</div>
+							<button type="submit" class="btn btn-primary">Guardar</button>
+				<!-- </div> -->
+			</form>
+		</div>
+	</div>
+{% endblock contenido %}

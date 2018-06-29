@@ -1,0 +1,45 @@
+{% extends "app/base.html" %}
+
+{% block contenido %}
+	<div class="row">
+		<div>
+			<ul>
+				{% for partido in partidos %}
+					{% ifchanged partido.grupo %}
+						</ul>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<h3 class="titulo-grupo">Grupo {{ partido.grupo }}</h3>
+						<ul class="list-group">
+					{% endifchanged %}
+					{% ifchanged partido.grupo partido.fecha %}
+						<li class="list-group-item separador-fecha">Fecha {{ partido.fecha }}</li>
+					{% endifchanged %}
+					<li class="list-group-item">
+						<div class="row">
+							<div class="col-xs-2">
+								<img src="{{ STATIC_PREFIX }}/img/banderas/{{ partido.equipo1.pk }}.png" alt="" class="bandera">
+							</div>
+							<div class="col-xs-8 resultado">
+								{% if partido.se_jugo %}
+									<p>{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }}</p>
+									<b>({{ partido.goles1 }} - {{ partido.goles2 }})</b>
+								{% else %}
+									<p>{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }} <a href="{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' %}">(Editar)</a></p>
+									{{ partido.horario|date:"l d/m - G:i" }}hs
+								{% endif %}
+							</div>
+							<div class="col-xs-2 text-right"><img class="bandera" src="{{ STATIC_PREFIX }}/img/banderas/{{ partido.equipo2.pk }}.png"></div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-4 col-md-4">
+			<a href="{% url 'logout' %}">Logout</a>
+		</div>
+	</div>
+{% endblock contenido %}
