@@ -52,7 +52,7 @@ def crear_prediccion(request, partido_pk):
 	return render(request, 'app/cambiar_prediccion.html', {'form': form, 'partido': partido})
 
 def puntos(request):
-	puntajes = Puntaje.objects.all().annotate(puntos = VALOR_PLENO * F('plenos') + VALOR_RESULTADO * F('resultados')).order_by('-puntos')
+	puntajes = Puntaje.objects.all().annotate(puntos = VALOR_PLENO * F('plenos') + VALOR_RESULTADO * F('resultados')).order_by('-puntos', '-plenos')
 
 	return render(request, 'app/puntos.html', {'puntajes': puntajes})
 
