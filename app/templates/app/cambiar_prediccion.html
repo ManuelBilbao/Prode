@@ -1,5 +1,6 @@
 {% extends "app/base.html" %}
 {% block contenido %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_PREFIX}}/css/forms.css">
 	<div class="row">
 		<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 card">
 			<form method="POST" class="form">
@@ -19,9 +20,20 @@
 							{{form.goles2}}
 						</div>
 					</div>
+					{% if partido.grupo|length > 1 %}
+						<br>
+						<div class="row">
+							<div class="col-xs-12 col-sm-8 col-md-5">
+								<label id="label-clasifica">Clasifica: </label>
+								{{form.clasifica}}
+							</div>
+						</div>
+					{% endif %}
+					<br>
 							<button type="submit" class="btn btn-primary">Guardar</button>
 				<!-- </div> -->
 			</form>
 		</div>
 	</div>
+	<script src="{{STATIC_PREFIX}}/js/forms.js"></script>
 {% endblock contenido %}

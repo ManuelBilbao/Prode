@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Partido, Torneo, Prediccion, Puntaje
+from .models import Equipo, Partido, Torneo, Prediccion, Puntaje
 from django.contrib.auth.models import User
 from .forms import FormCambiarPrediccion
 from django.contrib.auth.decorators import login_required
-from django.db.models import F
+from django.db.models import F, Q
 
 VALOR_PLENO = 3
 VALOR_RESULTADO = 1
@@ -24,6 +24,7 @@ def actualizar_prediccion(request, partido_pk, prediccion_pk):
 			return redirect('fixture')
 	else:
 		form = FormCambiarPrediccion(instance = prediccion)
+		form.fields['clasifica'].queryset = Equipo.objects.filter(Q(pk = partido.equipo1.pk) | Q(pk = partido.equipo2.pk))
 
 	return render(request, 'app/cambiar_prediccion.html', {'form': form, 'partido': partido})
 
@@ -48,6 +49,7 @@ def crear_prediccion(request, partido_pk):
 			return redirect('fixture')
 	else:
 		form = FormCambiarPrediccion()
+		form.fields['clasifica'].queryset = Equipo.objects.filter(Q(pk = partido.equipo1.pk) | Q(pk = partido.equipo2.pk))
 
 	return render(request, 'app/cambiar_prediccion.html', {'form': form, 'partido': partido})
 
