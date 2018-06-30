@@ -10,6 +10,8 @@
 							<th>Nombre</th>
 							<th>Plenos</th>
 							<th>Resultados</th>
+							<th>Penales</th>
+							<th>No clasificados</th>
 							<th>Puntos</th>
 						</tr>
 					</thead>
@@ -19,6 +21,8 @@
 								<td>{{puntaje.usuario.username}}</td>
 								<td>{{puntaje.plenos}}</td>
 								<td>{{puntaje.resultados}}</td>
+								<td>{{puntaje.penales}}</td>
+								<td>{{puntaje.error_clasificado}}</td>
 								<td>{{puntaje.puntos}}</td>
 							</tr>
 						{% endfor %}

@@ -48,6 +48,8 @@ class Puntaje(models.Model):
 	usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 	plenos = models.SmallIntegerField(default = 0)
 	resultados = models.SmallIntegerField(default = 0)
+	penales = models.SmallIntegerField(default = 0)
+	error_clasificado = models.SmallIntegerField(default = 0)
 
 	def __str__(self):
 		return self.usuario.username

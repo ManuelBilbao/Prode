@@ -7,6 +7,8 @@ from django.db.models import F, Q
 
 VALOR_PLENO = 3
 VALOR_RESULTADO = 1
+VALOR_PENAL = 2
+VALOR_ERRAR_CLASIFICADO = -1
 
 @login_required
 def actualizar_prediccion(request, partido_pk, prediccion_pk):
@@ -54,7 +56,7 @@ def crear_prediccion(request, partido_pk):
 	return render(request, 'app/cambiar_prediccion.html', {'form': form, 'partido': partido})
 
 def puntos(request):
-	puntajes = Puntaje.objects.all().annotate(puntos = VALOR_PLENO * F('plenos') + VALOR_RESULTADO * F('resultados')).order_by('-puntos', '-plenos')
+	puntajes = Puntaje.objects.all().annotate(puntos = VALOR_PLENO * F('plenos') + VALOR_RESULTADO * F('resultados') + VALOR_PENAL * F('penales') + VALOR_ERRAR_CLASIFICADO * F('error_clasificado')).order_by('-puntos', '-plenos')
 
 	return render(request, 'app/puntos.html', {'puntajes': puntajes})
 
