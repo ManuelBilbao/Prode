@@ -4,9 +4,6 @@ var goles1 = document.getElementById("id_goles1");
 var goles2 = document.getElementById("id_goles2");
 
 clasifica.setAttribute("class", "form-control");
-label_clasifica.setAttribute("style", "display:none");
-clasifica.setAttribute("style", "display:none");
-
 goles1.addEventListener('change', comprobar);
 goles2.addEventListener('change', comprobar);
 
@@ -19,3 +16,5 @@ function comprobar() {
 		label_clasifica.setAttribute("style", "display:none");
 	}
 }
+
+comprobar();
