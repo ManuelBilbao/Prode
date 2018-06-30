@@ -11,7 +11,7 @@ function comprobar() {
 	if (goles1.value == goles2.value) {
 		clasifica.removeAttribute("style");
 		label_clasifica.removeAttribute("style");
-	} else if (goles1.value > goles2.value) {
+	} else {
 		clasifica.setAttribute("style", "display:none");
 		label_clasifica.setAttribute("style", "display:none");
 	}
