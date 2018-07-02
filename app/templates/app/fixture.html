@@ -26,31 +26,16 @@
 									{% if partido.eliminatoria and partido.prediccion.goles1 == partido.prediccion.goles2 %}
 
 										{% if partido.prediccion.ganador == partido.equipo1 %}
-											<p>
-												<span class="ganador_eliminatorias">{{ partido.prediccion.goles1 }}</span>
-												 - {{ partido.prediccion.goles2 }}
-												<a href="{{url_ver}}">
-													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
-												</a>
-											</p>
+												<span class="ganador_eliminatorias">{{ partido.prediccion.goles1 }}</span> - {{ partido.prediccion.goles2 }}
 										{% else %}
-											<p>
-												{{ partido.prediccion.goles1 }} - 
-												<span class="ganador_eliminatorias">{{ partido.prediccion.goles2 }}</span>
-												<a href="{{url_ver}}">
-													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
-												</a>
-											</p>
+												{{ partido.prediccion.goles1 }} - <span class="ganador_eliminatorias">{{ partido.prediccion.goles2 }}</span>
 										{% endif %}
 
 									{% else %}
-										<p>
 											{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }}
-											<a href="{{url_ver}}">
-												<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
-											</a>
-										</p>
 									{% endif %}
+									<a href="{{url_ver}}"><span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span></a>
+									<br>
 									<b>({{ partido.goles1 }} - {{ partido.goles2 }})</b>
 
 								{% else %} <!-- Si no se jugo -->
@@ -58,34 +43,17 @@
 									{% if partido.eliminatoria and partido.prediccion.goles1 == partido.prediccion.goles2 %}
 
 										{% if partido.prediccion.ganador == partido.equipo1 %}
-											<p>
-												<span class="ganador_eliminatorias">{{ partido.prediccion.goles1 }}</span>
-												 - {{ partido.prediccion.goles2 }}
-												<a href="{{ url_editar }}"><span class="glyphicon glyphicon-pencil" title="Editar"></span></a>
-												<a href="{{url_ver}}">
-													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
-												</a>
-											</p>
+												<span class="ganador_eliminatorias">{{ partido.prediccion.goles1 }}</span> - {{ partido.prediccion.goles2 }}
 										{% else %}
-											<p>
-												{{ partido.prediccion.goles1 }} - 
-												<span class="ganador_eliminatorias">{{ partido.prediccion.goles2 }}</span>
-												<a href="{{url_editar}}"><span class="glyphicon glyphicon-pencil" title="Editar"></span></a>
-												<a href="{{url_ver}}">
-													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
-												</a>
-											</p>
+												{{ partido.prediccion.goles1 }} - <span class="ganador_eliminatorias">{{ partido.prediccion.goles2 }}</span>
 										{% endif %}
 
 									{% else %}
-										<p>
 											{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }}
-											<a href="{{url_editar}}"><span class="glyphicon glyphicon-pencil" title="Editar"></span></a>
-											<a href="{{url_ver}}">
-												<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
-											</a>
-										</p>
 									{% endif %}
+									<a href="{{url_editar}}"><span class="glyphicon glyphicon-pencil" title="Editar"></span></a>
+									<a href="{{url_ver}}"><span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span></a>
+									<br>
 									{{ partido.horario|date:"l d/m - G:i" }}hs
 								{% endif %}
 							</div>

@@ -70,8 +70,8 @@ def puntos(request):
 def fixture(request):
 	usuario = request.user
 	mundial = Torneo.objects.get(nombre = 'Mundial')
-	partidos = Partido.objects.filter(torneo = mundial).order_by('grupo', 'fecha', 'horario')
-	predicciones = Prediccion.objects.filter(usuario = usuario, torneo = mundial).order_by('partido__grupo', 'partido__fecha', 'partido__horario')
+	partidos = Partido.objects.filter(torneo = mundial).order_by('eliminatoria', 'grupo', 'fecha', 'horario')
+	predicciones = Prediccion.objects.filter(usuario = usuario, torneo = mundial).order_by('partido__eliminatoria', 'partido__grupo', 'partido__fecha', 'partido__horario')
 
 	i = 0
 	j = 0
