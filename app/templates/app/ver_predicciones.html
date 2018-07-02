@@ -1,0 +1,49 @@
+{% extends "app/base.html" %}
+{% block contenido %}
+    <div class="row">
+		<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 card">
+			<div class="row">
+				<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 ">
+					{% if not predicciones %}
+						Todavia nadie completo este partido
+					{% endif %}
+					<img src="{{STATIC_PREFIX}}/img/banderas/{{predicciones.0.partido.equipo1.pk}}.png" alt="{{predicciones.0.partido.equipo1.pk}}">
+					<img src="{{STATIC_PREFIX}}/img/banderas/{{predicciones.0.partido.equipo2.pk}}.png" alt="{{predicciones.0.partido.equipo2.pk}}" class="pull-right">
+				</div>
+			</div>
+			<br>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>{{predicciones.0.partido.equipo1}}</th>
+							<th>{{predicciones.0.partido.equipo2}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for prediccion in predicciones %}
+							<tr>
+								<td>{{prediccion.usuario}}</td>
+
+								{% if prediccion.partido.eliminatoria and prediccion.goles1 == prediccion.goles2 %}
+									{% if prediccion.ganador == prediccion.partido.equipo1 %}
+										<td class="ganador_eliminatorias">{{prediccion.goles1}}</td>
+										<td>{{prediccion.goles2}}</td>
+									{% else %}
+										<td>{{prediccion.goles1}}</td>
+										<td class="ganador_eliminatorias">{{prediccion.goles2}}</td>
+									{% endif %}
+								{% else %}
+									<td>{{prediccion.goles1}}</td>
+									<td>{{prediccion.goles2}}</td>
+								{% endif %}
+
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </div>
+{% endblock contenido %}

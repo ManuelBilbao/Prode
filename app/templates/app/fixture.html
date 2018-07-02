@@ -21,31 +21,70 @@
 								<img src="{{ STATIC_PREFIX }}/img/banderas/{{ partido.equipo1.pk }}.png" alt="" class="bandera">
 							</div>
 							<div class="col-xs-8 resultado">
+								{% url 'ver_predicciones' partido_pk=partido.pk as url_ver %}
 								{% if partido.se_jugo %}
 									{% if partido.eliminatoria and partido.prediccion.goles1 == partido.prediccion.goles2 %}
 
 										{% if partido.prediccion.ganador == partido.equipo1 %}
-											<p><span style="text-decoration: underline;">{{ partido.prediccion.goles1 }}</span> - {{ partido.prediccion.goles2 }}</p>
+											<p>
+												<span class="ganador_eliminatorias">{{ partido.prediccion.goles1 }}</span>
+												 - {{ partido.prediccion.goles2 }}
+												<a href="{{url_ver}}">
+													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
+												</a>
+											</p>
 										{% else %}
-											<p>{{ partido.prediccion.goles1 }} - <span style="text-decoration: underline;">{{ partido.prediccion.goles2 }}</span></p>
+											<p>
+												{{ partido.prediccion.goles1 }} - 
+												<span class="ganador_eliminatorias">{{ partido.prediccion.goles2 }}</span>
+												<a href="{{url_ver}}">
+													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
+												</a>
+											</p>
 										{% endif %}
 
 									{% else %}
-										<p>{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }}</p>
+										<p>
+											{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }}
+											<a href="{{url_ver}}">
+												<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
+											</a>
+										</p>
 									{% endif %}
 									<b>({{ partido.goles1 }} - {{ partido.goles2 }})</b>
 
 								{% else %} <!-- Si no se jugo -->
+									{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' as url_editar %}
 									{% if partido.eliminatoria and partido.prediccion.goles1 == partido.prediccion.goles2 %}
 
 										{% if partido.prediccion.ganador == partido.equipo1 %}
-											<p><span style="text-decoration: underline;">{{ partido.prediccion.goles1 }}</span> - {{ partido.prediccion.goles2 }} <a href="{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' %}">(Editar)</a></p>
+											<p>
+												<span class="ganador_eliminatorias">{{ partido.prediccion.goles1 }}</span>
+												 - {{ partido.prediccion.goles2 }}
+												<a href="{{ url_editar }}"><span class="glyphicon glyphicon-pencil" title="Editar"></span></a>
+												<a href="{{url_ver}}">
+													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
+												</a>
+											</p>
 										{% else %}
-											<p>{{ partido.prediccion.goles1 }} - <span style="text-decoration: underline;">{{ partido.prediccion.goles2 }}</span> <a href="{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' %}">(Editar)</a></p>
+											<p>
+												{{ partido.prediccion.goles1 }} - 
+												<span class="ganador_eliminatorias">{{ partido.prediccion.goles2 }}</span>
+												<a href="{{url_editar}}"><span class="glyphicon glyphicon-pencil" title="Editar"></span></a>
+												<a href="{{url_ver}}">
+													<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
+												</a>
+											</p>
 										{% endif %}
 
 									{% else %}
-										<p>{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }} <a href="{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' %}">(Editar)</a></p>
+										<p>
+											{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }}
+											<a href="{{url_editar}}"><span class="glyphicon glyphicon-pencil" title="Editar"></span></a>
+											<a href="{{url_ver}}">
+												<span class="glyphicon glyphicon-eye-open" title="Ver resultados de amigos"></span>
+											</a>
+										</p>
 									{% endif %}
 									{{ partido.horario|date:"l d/m - G:i" }}hs
 								{% endif %}

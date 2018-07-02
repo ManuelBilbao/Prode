@@ -5,7 +5,7 @@ from .forms import FormCambiarPrediccion
 from django.contrib.auth.decorators import login_required
 from django.db.models import F, Q
 
-# Ver las predicciones del resto
+# Ver las predicciones del resto en editar
 
 VALOR_PLENO = 3
 VALOR_RESULTADO = 1
@@ -71,7 +71,7 @@ def fixture(request):
 	usuario = request.user
 	mundial = Torneo.objects.get(nombre = 'Mundial')
 	partidos = Partido.objects.filter(torneo = mundial).order_by('grupo', 'fecha', 'horario')
-	predicciones = Prediccion.objects.filter(usuario = usuario, torneo = mundial).order_by('partido__grupo', 'partido__fecha')
+	predicciones = Prediccion.objects.filter(usuario = usuario, torneo = mundial).order_by('partido__grupo', 'partido__fecha', 'partido__horario')
 
 	i = 0
 	j = 0
@@ -89,3 +89,10 @@ def fixture(request):
 		i += 1
 
 	return render(request, 'app/fixture.html', {'partidos': partidos_con_predicciones})
+
+@login_required
+def ver_predicciones(request, partido_pk):
+	partido = get_object_or_404(Partido, pk = partido_pk)
+	predicciones = Prediccion.objects.filter(partido = partido).order_by('usuario__username')
+
+	return render(request, 'app/ver_predicciones.html', {'predicciones': predicciones})

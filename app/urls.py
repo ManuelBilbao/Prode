@@ -26,5 +26,6 @@ urlpatterns = [
     path('cambiar_pass/', auth_views.password_change, name='cambiar_contrasenia'),
     path('actualizar/<int:partido_pk>:<int:prediccion_pk>/', views.actualizar_prediccion, name='actualizar_prediccion'),
     path('nuevo/<int:partido_pk>/', views.crear_prediccion, name='crear_prediccion'),
-    path('puntos/', views.puntos, name='puntos')
+    path('puntos/', views.puntos, name='puntos'),
+    path('ver/<int:partido_pk>/', views.ver_predicciones, name='ver_predicciones'),
 ]
