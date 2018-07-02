@@ -5,8 +5,6 @@ from .forms import FormCambiarPrediccion
 from django.contrib.auth.decorators import login_required
 from django.db.models import F, Q
 
-# Ver las predicciones del resto en editar
-
 VALOR_PLENO = 3
 VALOR_RESULTADO = 1
 VALOR_PENAL = 1

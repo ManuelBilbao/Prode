@@ -13,6 +13,7 @@
 						<div class="col-xs-4 text-center">
 							Martes 25/06
 							<br>15:00hs
+							<br><a href="{% url 'ver_predicciones' partido_pk=partido.pk %}"><span class="glyphicon glyphicon-eye-open"></span></a>
 						</div>
 						<div class="col-xs-4">
 							<img src="{{STATIC_PREFIX}}/img/banderas/{{partido.equipo2.pk}}.png" alt="" class="pull-right">
@@ -29,7 +30,7 @@
 						</div>
 					{% endif %}
 					<br>
-							<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="submit" class="btn btn-primary">Guardar</button>
 			</form>
 		</div>
 	</div>
