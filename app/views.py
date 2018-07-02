@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Equipo, Partido, Torneo, Prediccion, Puntaje
-from django.contrib.auth.models import User
-from .forms import FormCambiarPrediccion
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import F, Q
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import FormCambiarPrediccion
+from .models import Equipo, Partido, Torneo, Prediccion, Puntaje
 
 VALOR_PLENO = 3
 VALOR_RESULTADO = 1
@@ -68,8 +68,8 @@ def puntos(request):
 def fixture(request):
 	usuario = request.user
 	mundial = Torneo.objects.get(nombre = 'Mundial')
-	partidos = Partido.objects.filter(torneo = mundial).order_by('eliminatoria', 'grupo', 'fecha', 'horario')
-	predicciones = Prediccion.objects.filter(usuario = usuario, torneo = mundial).order_by('partido__eliminatoria', 'partido__grupo', 'partido__fecha', 'partido__horario')
+	partidos = Partido.objects.filter(torneo = mundial).order_by('eliminatoria', 'fase_eliminatoria', 'grupo', 'fecha', 'horario')
+	predicciones = Prediccion.objects.filter(usuario = usuario, torneo = mundial).order_by('partido__eliminatoria', 'partido__fase_eliminatoria', 'partido__grupo', 'partido__fecha', 'partido__horario')
 
 	i = 0
 	j = 0

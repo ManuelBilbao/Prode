@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils import timezone
 
 # Create your models here.
@@ -28,6 +28,7 @@ class Partido(models.Model):
 	eliminatoria = models.BooleanField(default = False)
 	penales1 = models.SmallIntegerField(null = True, blank = True)
 	penales2 = models.SmallIntegerField(null = True, blank = True)
+	fase_eliminatoria = models.SmallIntegerField(null = True, blank = True)
 
 	def se_jugo(self):
 		return self.horario <= timezone.now()
