@@ -5,7 +5,6 @@
 		<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 card">
 			<form method="POST" class="form">
 				{% csrf_token %}
-				<!-- <div class="container"> -->
 					<div class="row">
 						<div class="col-xs-4">
 							<img src="{{STATIC_PREFIX}}/img/banderas/{{partido.equipo1.pk}}.png" alt="" class="">
@@ -20,18 +19,17 @@
 							{{form.goles2}}
 						</div>
 					</div>
-					{% if partido.grupo|length > 1 %}
+					{% if partido.eliminatoria %}
 						<br>
 						<div class="row">
 							<div class="col-xs-12 col-sm-8 col-md-5">
-								<label id="label-clasifica">Clasifica: </label>
-								{{form.clasifica}}
+								<label id="label_ganador">Ganador: </label>
+								{{form.ganador}}
 							</div>
 						</div>
 					{% endif %}
 					<br>
 							<button type="submit" class="btn btn-primary">Guardar</button>
-				<!-- </div> -->
 			</form>
 		</div>
 	</div>

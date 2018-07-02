@@ -22,23 +22,28 @@
 							</div>
 							<div class="col-xs-8 resultado">
 								{% if partido.se_jugo %}
-									{% if partido.grupo|length > 1 and partido.partido.prediccion.goles1 == partido.partido.prediccion.goles2 %}
-										{% if partido.prediccion.clasifica == partido.equipo1 %}
+									{% if partido.eliminatoria and partido.prediccion.goles1 == partido.prediccion.goles2 %}
+
+										{% if partido.prediccion.ganador == partido.equipo1 %}
 											<p><span style="text-decoration: underline;">{{ partido.prediccion.goles1 }}</span> - {{ partido.prediccion.goles2 }}</p>
 										{% else %}
 											<p>{{ partido.prediccion.goles1 }} - <span style="text-decoration: underline;">{{ partido.prediccion.goles2 }}</span></p>
 										{% endif %}
+
 									{% else %}
 										<p>{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }}</p>
 									{% endif %}
 									<b>({{ partido.goles1 }} - {{ partido.goles2 }})</b>
-								{% else %}
-									{% if partido.grupo|length > 1 and partido.prediccion.goles1 == partido.prediccion.goles2 %}
-										{% if partido.prediccion.clasifica == partido.equipo1 %}
+
+								{% else %} <!-- Si no se jugo -->
+									{% if partido.eliminatoria and partido.prediccion.goles1 == partido.prediccion.goles2 %}
+
+										{% if partido.prediccion.ganador == partido.equipo1 %}
 											<p><span style="text-decoration: underline;">{{ partido.prediccion.goles1 }}</span> - {{ partido.prediccion.goles2 }} <a href="{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' %}">(Editar)</a></p>
 										{% else %}
 											<p>{{ partido.prediccion.goles1 }} - <span style="text-decoration: underline;">{{ partido.prediccion.goles2 }}</span> <a href="{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' %}">(Editar)</a></p>
 										{% endif %}
+
 									{% else %}
 										<p>{{ partido.prediccion.goles1 }} - {{ partido.prediccion.goles2 }} <a href="{% url 'actualizar_prediccion' partido_pk=partido.pk prediccion_pk=partido.prediccion.pk|default:'0' %}">(Editar)</a></p>
 									{% endif %}

@@ -5,16 +5,22 @@ from .forms import FormCambiarPrediccion
 from django.contrib.auth.decorators import login_required
 from django.db.models import F, Q
 
+# Ver las predicciones del resto
+
 VALOR_PLENO = 3
 VALOR_RESULTADO = 1
-VALOR_PENAL = 2
+VALOR_PENAL = 1
 VALOR_ERRAR_CLASIFICADO = -1
 
 @login_required
 def actualizar_prediccion(request, partido_pk, prediccion_pk):
-	partido = get_object_or_404(Partido, pk = partido_pk, goles1 = None)
+	partido = get_object_or_404(Partido, pk = partido_pk)
+
+	if partido.se_jugo():
+		return redirect('fixture')
+
 	try:
-		prediccion = Prediccion.objects.get(usuario = request.user, pk = prediccion_pk)
+		prediccion = Prediccion.objects.get(usuario = request.user, pk = prediccion_pk, partido = partido)
 	except Prediccion.DoesNotExist:
 		return redirect('crear_prediccion', partido_pk)
 
@@ -26,7 +32,7 @@ def actualizar_prediccion(request, partido_pk, prediccion_pk):
 			return redirect('fixture')
 	else:
 		form = FormCambiarPrediccion(instance = prediccion)
-		form.fields['clasifica'].queryset = Equipo.objects.filter(Q(pk = partido.equipo1.pk) | Q(pk = partido.equipo2.pk))
+		form.fields['ganador'].queryset = Equipo.objects.filter(Q(pk = partido.equipo1.pk) | Q(pk = partido.equipo2.pk))
 
 	return render(request, 'app/cambiar_prediccion.html', {'form': form, 'partido': partido})
 
@@ -51,7 +57,7 @@ def crear_prediccion(request, partido_pk):
 			return redirect('fixture')
 	else:
 		form = FormCambiarPrediccion()
-		form.fields['clasifica'].queryset = Equipo.objects.filter(Q(pk = partido.equipo1.pk) | Q(pk = partido.equipo2.pk))
+		form.fields['ganador'].queryset = Equipo.objects.filter(Q(pk = partido.equipo1.pk) | Q(pk = partido.equipo2.pk))
 
 	return render(request, 'app/cambiar_prediccion.html', {'form': form, 'partido': partido})
 
@@ -64,7 +70,7 @@ def puntos(request):
 def fixture(request):
 	usuario = request.user
 	mundial = Torneo.objects.get(nombre = 'Mundial')
-	partidos = Partido.objects.filter(torneo = mundial).order_by('grupo', 'fecha')
+	partidos = Partido.objects.filter(torneo = mundial).order_by('grupo', 'fecha', 'horario')
 	predicciones = Prediccion.objects.filter(usuario = usuario, torneo = mundial).order_by('partido__grupo', 'partido__fecha')
 
 	i = 0

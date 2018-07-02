@@ -25,6 +25,9 @@ class Partido(models.Model):
 	horario = models.DateTimeField();
 	goles1 = models.SmallIntegerField(null=True, blank=True)
 	goles2 = models.SmallIntegerField(null=True, blank=True)
+	eliminatoria = models.BooleanField(default = False)
+	penales1 = models.SmallIntegerField(null = True, blank = True)
+	penales2 = models.SmallIntegerField(null = True, blank = True)
 
 	def se_jugo(self):
 		return self.horario <= timezone.now()
@@ -39,7 +42,7 @@ class Prediccion(models.Model):
 	partido = models.ForeignKey(Partido, related_name='partido', on_delete=models.CASCADE)
 	goles1 = models.SmallIntegerField()
 	goles2 = models.SmallIntegerField()
-	clasifica = models.ForeignKey(Equipo, related_name='Equipo_clasifica', on_delete=models.CASCADE, default=0)
+	ganador = models.ForeignKey(Equipo, related_name='equipo_ganador', on_delete=models.CASCADE, null=True, default=None)
 
 	def __str__(self):
 		return self.usuario.username + " -> " + self.partido.equipo1.nombre + " - " + self.partido.equipo2.nombre
