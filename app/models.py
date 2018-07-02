@@ -42,7 +42,7 @@ class Prediccion(models.Model):
 	partido = models.ForeignKey(Partido, related_name='partido', on_delete=models.CASCADE)
 	goles1 = models.SmallIntegerField()
 	goles2 = models.SmallIntegerField()
-	ganador = models.ForeignKey(Equipo, related_name='equipo_ganador', on_delete=models.CASCADE, null=True, default=None)
+	ganador = models.ForeignKey(Equipo, related_name='equipo_ganador', on_delete=models.CASCADE, null=True, blank = True, default=None)
 
 	def __str__(self):
 		return self.usuario.username + " -> " + self.partido.equipo1.nombre + " - " + self.partido.equipo2.nombre
