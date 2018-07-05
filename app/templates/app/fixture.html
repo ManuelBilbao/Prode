@@ -28,7 +28,17 @@
 					{% ifchanged partido.grupo partido.fecha %}
 						<li class="list-group-item separador-fecha">Fecha {{ partido.fecha }}</li>
 					{% endifchanged %}
-					<li class="list-group-item">
+					{% if partido.goles1 != None and partido.goles2 != None %}
+						{% if partido.goles1 == partido.prediccion.goles1 and partido.goles2 == partido.prediccion.goles2 %}
+							<li class="list-group-item verde">
+						{% elif partido.equipo_ganador == partido.prediccion.equipo_ganador %}
+							<li class="list-group-item amarillo">
+						{% else %}
+							<li class="list-group-item rojo">
+						{% endif %}
+					{% else %}
+						<li class="list-group-item">
+					{% endif %}
 						<div class="row">
 							<div class="col-xs-2">
 								<img src="{{ STATIC_PREFIX }}/img/banderas/{{ partido.equipo1.pk }}.png" alt="" class="bandera">

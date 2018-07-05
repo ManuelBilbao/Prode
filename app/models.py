@@ -26,12 +26,20 @@ class Partido(models.Model):
 	goles1 = models.SmallIntegerField(null=True, blank=True)
 	goles2 = models.SmallIntegerField(null=True, blank=True)
 	eliminatoria = models.BooleanField(default = False)
+	fase_eliminatoria = models.SmallIntegerField(null = True, blank = True)
 	penales1 = models.SmallIntegerField(null = True, blank = True)
 	penales2 = models.SmallIntegerField(null = True, blank = True)
-	fase_eliminatoria = models.SmallIntegerField(null = True, blank = True)
 
 	def se_jugo(self):
 		return self.horario <= timezone.now()
+
+	def equipo_ganador(self):
+		if self.goles1 > self.goles2:
+			return self.equipo1
+		elif self.goles2 > self.goles1:
+			return self.equipo2
+		else:
+			return 0
 
 	def __str__(self):
 		return self.equipo1.nombre + " - " + self.equipo2.nombre
@@ -43,7 +51,18 @@ class Prediccion(models.Model):
 	partido = models.ForeignKey(Partido, related_name='partido', on_delete=models.CASCADE)
 	goles1 = models.SmallIntegerField()
 	goles2 = models.SmallIntegerField()
-	ganador = models.ForeignKey(Equipo, related_name='equipo_ganador', on_delete=models.CASCADE, null=True, blank = True, default=None)
+	ganador = models.ForeignKey(Equipo, related_name='equipo_gan', on_delete=models.CASCADE, null=True, blank = True, default=None)
+
+	def equipo_ganador(self):
+		if self.ganador == None:
+			if self.goles1 > self.goles2:
+				return self.partido.equipo1
+			elif self.goles2 > self.goles1:
+				return self.partido.equipo2
+			else:
+				return 0
+		else:
+			return self.ganador
 
 	def __str__(self):
 		return self.usuario.username + " -> " + self.partido.equipo1.nombre + " - " + self.partido.equipo2.nombre
